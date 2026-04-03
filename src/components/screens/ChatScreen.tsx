@@ -164,6 +164,7 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
                     <img
                       src={bheemIcon}
                       alt="User Avatar"
+                      loading="lazy"
                       className="absolute -left-1 -bottom-3 size-6 rounded-full border-2 border-primary shadow-[0_0_8px_rgba(255,42,142,0.5)] object-cover bg-white z-20 pointer-events-none"
                     />
                   </div>
@@ -187,6 +188,7 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
                     <img
                       src={qmeeImg}
                       alt="AI Avatar"
+                      loading="lazy"
                       className="absolute -right-[9px] -bottom-4 w-7 h-7 rounded-full border-2 border-[#f5439a] object-contain bg-white z-20 pointer-events-none"
                     />
                   </div>

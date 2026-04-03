@@ -15,7 +15,7 @@ export function CentralGraphic() {
   return (
     <div className="flex flex-col items-center">
       {/* Uploaded Transparent PNG Logo */}
-      <img src={qmeeImg} alt="Logo" className="w-32 h-32 object-contain" />
+      <img src={qmeeImg} alt="Logo" loading="lazy" className="w-32 h-32 object-contain" />
 
       {/* Social icon below it */}
       <div className="mt-6 flex items-center justify-center z-20">

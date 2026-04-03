@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header className="w-full max-w-4xl mx-auto px-4 py-6 flex items-center justify-between z-20 relative">
       {/* Left Logo / Profile (Approximation of the red logo sphere) */}
-      <img src={qmeeImg} alt="Logo" className="size-6 object-contain" />
+      <img src={qmeeImg} alt="Logo" loading="lazy" className="size-6 object-contain" />
 
       {/* Center Navigation Icons */}
       <div className="flex space-x-3 mt-1">
