@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #ff2a8e;
+  --color-primary-light: #ff60a9;
+  --color-background: #ffffff;
+  --color-surface: #f9f9fa;
+  --color-border: #ffd5e6;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --animate-arrow-fade: arrow-fade 2s ease-in-out infinite;
+
+  @keyframes arrow-fade {
+    0%, 100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: #1a1a1a;
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
