@@ -4,18 +4,19 @@ import { motion } from 'framer-motion';
 
 interface WelcomeScreenProps {
   onStartChat: (message: string) => void;
+  onGoLanding: () => void;
 }
 
-export default function WelcomeScreen({ onStartChat }: WelcomeScreenProps) {
+export default function WelcomeScreen({ onStartChat, onGoLanding }: WelcomeScreenProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="flex-1 flex flex-col items-center justify-center pb-8 pt-6 w-full"
     >
-      <div className="absolute top-6 left-1/2 -translate-x-1/2">
+      <button onClick={onGoLanding} className="absolute top-6 left-1/2 -translate-x-1/2 cursor-pointer">
         <QMeeTextLogo />
-      </div>
+      </button>
 
       <div className="flex flex-col items-center w-full max-w-2xl mt-12 mb-auto shrink-0">
         <div className='mt-16'>

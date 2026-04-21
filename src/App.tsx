@@ -4,17 +4,37 @@ import Header from './components/layout/Header';
 import LandingScreen from './components/screens/LandingScreen';
 import WelcomeScreen from './components/screens/WelcomeScreen';
 import ChatScreen from './components/screens/ChatScreen';
+import ShareScreen from './components/screens/ShareScreen';
 
-export type AppScreen = 'landing' | 'welcome' | 'chat';
+export type AppScreen = 'landing' | 'welcome' | 'chat' | 'share';
+
+const getScreenFromPath = (pathname: string): AppScreen => (pathname === '/share' ? 'share' : 'landing');
 
 function App() {
-  const [currentScreen, setCurrentScreen] = useState<AppScreen>('landing');
+  const [currentScreen, setCurrentScreen] = useState<AppScreen>(() => getScreenFromPath(window.location.pathname));
   const [initialPrompt, setInitialPrompt] = useState<string>('');
 
+  const navigateTo = (screen: AppScreen, path?: string) => {
+    setCurrentScreen(screen);
+    if (path && window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+    }
+  };
+
   useEffect(() => {
-    const handleGoHome = () => setCurrentScreen('welcome');
+    const handleGoHome = () => {
+      setCurrentScreen('landing');
+      if (window.location.pathname !== '/') {
+        window.history.pushState({}, '', '/');
+      }
+    };
     document.addEventListener('navigate-home', handleGoHome);
-    return () => document.removeEventListener('navigate-home', handleGoHome);
+    const handlePopState = () => setCurrentScreen(getScreenFromPath(window.location.pathname));
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      document.removeEventListener('navigate-home', handleGoHome);
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, []);
 
   const handleStartChat = (prompt?: string) => {
@@ -23,17 +43,28 @@ function App() {
     } else {
       setInitialPrompt('');
     }
-    setCurrentScreen('chat');
+    navigateTo('chat', '/');
   };
 
   return (
     <div className="h-[100dvh] w-full bg-background flex flex-col font-sans overflow-hidden">
       {currentScreen === 'chat' && <Header />}
-
-      <main className="flex-1 w-full max-w-4xl mx-auto flex flex-col relative px-4 overflow-hidden">
-        {currentScreen === 'landing' && <LandingScreen onNext={() => setCurrentScreen('welcome')} />}
-        {currentScreen === 'welcome' && <WelcomeScreen onStartChat={handleStartChat} />}
+      <main className="flex-1 w-full max-w-5xl mx-auto flex flex-col relative px-4 overflow-hidden">
+        {currentScreen === 'landing' && (
+          <LandingScreen onNext={() => navigateTo('welcome', '/')} onShare={() => navigateTo('share', '/share')} onHome={() => navigateTo('landing', '/')} />
+        )}
+        {currentScreen === 'welcome' && (
+          <WelcomeScreen onStartChat={handleStartChat} onGoLanding={() => navigateTo('landing', '/')} />
+        )}
         {currentScreen === 'chat' && <ChatScreen initialPrompt={initialPrompt} />}
+        {currentScreen === 'share' && (
+          <ShareScreen
+            onBack={() => navigateTo('landing', '/')}
+            onOpenChat={() => navigateTo('welcome', '/')}
+            onOpenShare={() => navigateTo('share', '/share')}
+            onHome={() => navigateTo('landing', '/')}
+          />
+        )}
       </main>
     </div>
   );

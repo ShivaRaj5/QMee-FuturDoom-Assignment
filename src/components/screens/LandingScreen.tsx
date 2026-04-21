@@ -1,22 +1,25 @@
-import { QMeeTextLogo, CentralGraphic } from '../ui/CentralGraphics';
+import { CentralGraphic } from '../ui/CentralGraphics';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import LandingHeader from '../layout/LandingHeader';
 
 interface LandingScreenProps {
   onNext: () => void;
+  onShare: () => void;
+  onHome: () => void;
 }
 
-export default function LandingScreen({ onNext }: LandingScreenProps) {
+export default function LandingScreen({ onNext, onShare, onHome }: LandingScreenProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex-1 flex flex-col items-center justify-between pb-8 pt-12"
+      className="flex-1 flex flex-col items-center justify-between pb-8"
     >
-      <div className="flex flex-col items-center w-full">
-        <QMeeTextLogo />
+      <LandingHeader onOpenChat={onNext} onOpenShare={onShare} onGoHome={onHome} />
 
-        <div className="mt-16 mb-20">
+      <div className="flex flex-col items-center w-full">
+        <div className="mt-12 mb-20">
           <CentralGraphic />
         </div>
 
