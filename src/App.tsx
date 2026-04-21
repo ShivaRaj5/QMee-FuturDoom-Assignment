@@ -49,7 +49,11 @@ function App() {
   return (
     <div className="h-[100dvh] w-full bg-background flex flex-col font-sans overflow-hidden">
       {currentScreen === 'chat' && <Header />}
-      <main className="flex-1 w-full max-w-5xl mx-auto flex flex-col relative px-4 overflow-hidden">
+      <main
+        className={`flex-1 w-full mx-auto flex flex-col relative overflow-hidden ${
+          currentScreen === 'landing' || currentScreen === 'share' ? 'max-w-none px-0' : 'max-w-5xl px-4'
+        }`}
+      >
         {currentScreen === 'landing' && (
           <LandingScreen onNext={() => navigateTo('welcome', '/')} onShare={() => navigateTo('share', '/share')} onHome={() => navigateTo('landing', '/')} />
         )}

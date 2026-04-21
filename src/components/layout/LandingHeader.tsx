@@ -11,7 +11,7 @@ const navItems = ['Platform', 'Developers', 'Resources', 'Share'] as const;
 export default function LandingHeader({ onOpenChat, onOpenShare, onGoHome }: LandingHeaderProps) {
   return (
     <header className="w-full mt-6">
-      <div className="w-full rounded-full border border-primary/15 bg-[#fdf9fd] px-4 py-2.5 md:px-5 shadow-[0_6px_24px_rgba(245,8,193,0.08)]">
+      <div className="w-[90%] mx-auto rounded-full border border-primary/15 bg-[#fdf9fd] px-4 py-2.5 md:px-5 shadow-[0_6px_24px_rgba(245,8,193,0.08)]">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
           <button onClick={onGoHome} className="flex items-center gap-3 min-w-[120px] cursor-pointer">
             <div className="size-10 rounded-full border border-primary/10 bg-[#f9eef8] flex items-center justify-center">
