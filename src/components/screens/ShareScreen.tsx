@@ -327,7 +327,7 @@ export default function ShareScreen({ onOpenChat, onOpenShare, onHome }: ShareSc
                           placeholder="your@email.com"
                           className="h-10 flex-1 rounded-xl border border-[#d5dff5] bg-white px-3 text-[14px] text-[#33496f] outline-none focus:border-[#8ea7dd] transition-colors"
                         />
-                        <button className="h-10 rounded-xl px-5 bg-linear-to-r from-[#6d67ff] to-[#4a58e8] text-white font-semibold hover:brightness-105 transition-all cursor-pointer text-xs hover:scale-[1.05]">
+                        <button className="h-10 rounded-xl px-5 bg-linear-to-r from-[#3f86ff] to-[#6a42e8] text-white font-semibold transition-all duration-200 cursor-pointer text-xs shadow-[0_10px_22px_rgba(79,89,236,0.3)] hover:brightness-110 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(79,89,236,0.4)]">
                           Subscribe
                         </button>
                       </div>
