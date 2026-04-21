@@ -63,7 +63,6 @@ function App() {
         {currentScreen === 'chat' && <ChatScreen initialPrompt={initialPrompt} />}
         {currentScreen === 'share' && (
           <ShareScreen
-            onBack={() => navigateTo('landing', '/')}
             onOpenChat={() => navigateTo('welcome', '/')}
             onOpenShare={() => navigateTo('share', '/share')}
             onHome={() => navigateTo('landing', '/')}
