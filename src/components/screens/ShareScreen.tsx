@@ -13,7 +13,8 @@ import {
   Sparkles,
   UserPlus,
   Trash2,
-  CheckCheck
+  CheckCheck,
+  Brain
 } from 'lucide-react';
 import LandingHeader from '../layout/LandingHeader';
 import userImg from '../../assets/user.jpeg';
@@ -187,7 +188,7 @@ export default function ShareScreen({ onOpenChat, onOpenShare, onHome }: ShareSc
 
             <section className="space-y-4">
               <div
-                className="space-y-4 max-h-[100vh] overflow-y-auto pr-1 scrollbar-hide"
+                className="space-y-8 max-h-[100vh] overflow-y-auto pr-1 scrollbar-hide"
                 onScroll={handleConversationScroll}
               >
                 <div
@@ -396,42 +397,47 @@ export default function ShareScreen({ onOpenChat, onOpenShare, onHome }: ShareSc
                         </div>
                       </div>
 
-                      <div className="rounded-2xl border border-[#b9d5ff] bg-[#f8fbff] px-7 py-5">
+                      <div className="bg-gradient-to-b from-blue-50/50 to-white rounded-xl border border-blue-100 p-4 hover:border-blue-300 transition-all duration-300 hover:scale-[1.01] group">
                         <div className="flex items-center justify-between">
                           <div className="inline-flex items-center gap-3">
-                            <span className="inline-flex items-center justify-center w-11 h-7 rounded-full bg-[#e9f1ff] text-[#2f6dff]">
-                              <MessageCircle className="w-4 h-4" />
+                            <span className="inline-flex items-center justify-center w-11 h-7 rounded-lg bg-[#e9f1ff] text-[#2f6dff] gap-1">
+                              <Brain className='size-3' />
+                              <MessageCircle className="size-3" />
                             </span>
-                            <span className="text-[#2f58de] font-semibold text-[34px] leading-none">Continue reading...</span>
+                            <span className="text-xs font-medium text-blue-600 group-hover:text-blue-700 transition-colors">Continue reading...</span>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-[#5b7dc2]" />
+                          <ArrowRight className="size-4 text-blue-300 group-hover:text-blue-500" />
                         </div>
 
-                        <div className="mt-5 flex items-center gap-2 text-[#8ea1c3] text-[30px] leading-none">
-                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#ecf2fe] text-[18px]">u</span>
-                          <span>Next question</span>
+                        <div className="mt-5 flex items-center gap-2 text-[#8ea1c3] leading-none">
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#ecf2fe] text-[8px] font-medium text-slate-500">U</span>
+                          <span className='text-[11px] text-slate-500 mb-1'>Next question</span>
                         </div>
-                        <div className="mt-3 rounded-xl border border-[#e4ecfb] bg-white px-6 py-4 text-[#384f7c] text-[37px] leading-none">
+                        <div className="text-xs text-slate-700 bg-white/80 p-2 rounded-lg border border-blue-50 ml-8">
                           Can you show me a complete example with CSS?
                         </div>
 
                         <div className="mt-4 flex items-center justify-end gap-2 text-[#7f92b7] text-[30px] leading-none">
-                          <span>AI response</span>
-                          <Sparkles className="w-4 h-4 text-[#7ea0e2]" />
+                          <span className='text-[11px] text-slate-500 mb-1'>AI response</span>
+                          <div className='w-5 h-5 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5'>
+                            <Sparkles className="size-2 text-blue-500" />
+                          </div>
                         </div>
-                        <div className="mt-2 rounded-xl border border-[#d9e4fb] bg-[#eef3ff] px-6 py-4 text-[#2e5be2] text-[35px] leading-none text-right">
+                        <div className="text-xs text-blue-700 bg-blue-50/80 p-2 rounded-lg border border-blue-100 text-center mr-7">
                           Absolutely! Here&apos;s a complete example with responsive design...
                         </div>
 
-                        <p className="text-center text-[23px] text-[#9fb0cf] mt-4 leading-none">Click to view full conversation</p>
+                        <p className="text-[9px] text-slate-400 text-center mt-3">Click to view full conversation</p>
                       </div>
 
-                      <div className="pt-4 border-t border-[#e3e9f7] flex items-center justify-end gap-4">
-                        <button className="inline-flex items-center gap-2 text-[#6d7fa6] text-[15px] hover:text-[#3d568a] transition-colors cursor-pointer">
+                      <hr className='mt-6 text-blue-100'/>
+
+                      <div className="pt-4.5 flex items-center justify-end gap-3">
+                        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200">
                           <Share2 className="w-4 h-4" />
                           Share
                         </button>
-                        <button className="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-[#2f6dff] to-[#1f4fd4] text-white px-5 py-2.5 font-semibold shadow-[0_8px_20px_rgba(47,109,255,0.35)] hover:brightness-105 transition-all cursor-pointer">
+                        <button className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-[#1a3aad] to-[#2563eb] text-white shadow-md hover:shadow-lg transition-all duration-200">
                           View Thread
                           <ArrowRight className="w-4 h-4" />
                         </button>
