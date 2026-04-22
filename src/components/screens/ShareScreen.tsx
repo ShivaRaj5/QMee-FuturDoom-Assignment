@@ -3,7 +3,6 @@ import { useRef, useState, type UIEventHandler, type WheelEventHandler } from 'r
 import {
   ArrowRight,
   CalendarDays,
-  Copy,
   Globe,
   Heart,
   Link2,
