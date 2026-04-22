@@ -423,7 +423,7 @@ export default function ShareScreen({ onOpenChat, onOpenShare, onHome }: ShareSc
                             <Sparkles className="size-2 text-blue-500" />
                           </div>
                         </div>
-                        <div className="text-xs text-blue-700 bg-blue-50/80 p-2 rounded-lg border border-blue-100 text-center mr-7">
+                        <div className="text-xs text-blue-700 bg-blue-50/80 p-2 rounded-lg border border-blue-100 text-right mr-7">
                           Absolutely! Here&apos;s a complete example with responsive design...
                         </div>
 
