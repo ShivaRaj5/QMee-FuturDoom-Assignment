@@ -3,9 +3,9 @@ import { useRef, useState, type UIEventHandler, type WheelEventHandler } from 'r
 import {
   ArrowRight,
   CalendarDays,
+  Copy,
   Globe,
   Heart,
-  Link2,
   MapPin,
   MessageCircle,
   Share2,
@@ -13,11 +13,13 @@ import {
   Sparkles,
   UserPlus,
   Trash2,
+  CheckCheck
 } from 'lucide-react';
 import LandingHeader from '../layout/LandingHeader';
-import bheemIcon from '../../assets/bheem-icon.jpg';
-import qmeeImg from '../../assets/qmee.png';
 import userImg from '../../assets/user.jpeg';
+import conversationQuestionImg1 from '../../assets/conversation-question-img-1.jpeg';
+import conversationQuestionImg2 from '../../assets/conversation-question-img-2.jpeg';
+import conversationAnswerImg1 from '../../assets/conversation-answer-img-1.jpeg';
 
 interface ShareScreenProps {
   onOpenChat: () => void;
@@ -40,7 +42,9 @@ const conversations = [
     date: 'Feb 19, 2026',
     asker: 'Dipankar Porey',
     question: 'Hello, can you tell me about futurdoom.',
-    answer: 'Futurdoom not found {🤷}',
+    answer: 'Futurdoom not found 🤷',
+    questionAvatar: conversationQuestionImg1,
+    answerAvatar: conversationAnswerImg1,
   },
   {
     id: 'c2',
@@ -48,13 +52,8 @@ const conversations = [
     asker: 'Acilok Kolfica',
     question: 'Tell about mango shake',
     answer: 'Mango Shake is a refreshing beverage made with mango pulp and milk 🥭',
-  },
-  {
-    id: 'c3',
-    date: 'Feb 10, 2026',
-    asker: 'Rina V',
-    question: 'How does this code parser block work?',
-    answer: 'It previews follow-up prompts and generated responses with expandable thread context.',
+    questionAvatar: conversationQuestionImg2,
+    answerAvatar: conversationAnswerImg1,
   },
 ];
 
@@ -192,91 +191,239 @@ export default function ShareScreen({ onOpenChat, onOpenShare, onHome }: ShareSc
                 onScroll={handleConversationScroll}
               >
                 <div
-                  className={`sticky top-0 z-20 rounded-tl-2xl rounded-tr-2xl border border-[#e2e8fa] overflow-hidden bg-white transition-transform duration-300 ease-out ${hideCommunityHeader ? '-translate-y-[110%]' : 'translate-y-0'
+                  className={`mb-6 sticky top-0 z-20 rounded-tl-2xl rounded-tr-2xl border border-[#e2e8fa] overflow-hidden bg-white transition-transform duration-300 ease-out ${hideCommunityHeader ? '-translate-y-[110%]' : 'translate-y-0'
                     }`}
                 >
                   <div className="px-6 py-5 bg-[linear-gradient(95deg,#1c45b8,#1034a6),radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.22),transparent_25%),radial-gradient(circle_at_70%_40%,rgba(255,255,255,0.12),transparent_22%),repeating-linear-gradient(90deg,rgba(255,255,255,0.06)_0_1px,transparent_1px_42px),repeating-linear-gradient(0deg,rgba(255,255,255,0.04)_0_1px,transparent_1px_42px)] bg-blend-overlay">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="text-[12px] uppercase tracking-[0.25em] text-white/70 font-semibold">Community</p>
-                        <h1 className="text-[42px] text-white leading-none mt-2 font-semibold">Share &amp; Connect</h1>
+                        <p className="text-[12px] uppercase tracking-[0.25em] text-white/70 font-semibold inline-flex items-center gap-2">
+                          <span className="w-4 h-[2px] bg-white/70 rounded-full" />
+                          Community
+                        </p>
+                        <div className="mt-2 text-lg sm:text-xl md:text-2xl font-black text-white tracking-tight flex items-center gap-1.5 sm:gap-2">
+                          <h1>Share &amp; Connect</h1>
+                          <Share2 className="w-5 h-5 text-white/80" />
+                        </div>
                         <p className="text-white/75 mt-2 text-[16px]">Latest discussions and replies</p>
                       </div>
-                      <button className="rounded-full border border-white/35 bg-white/10 text-white px-4 py-1.5 text-[13px] font-medium hover:bg-white/20 transition-colors cursor-pointer">
-                        3 conversations
+                      <button className="mt-8 rounded-full border border-white/35 backdrop-blur-[1px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] text-white px-4 py-1.5 text-[13px] font-medium bg-white/24 transition-colors inline-flex items-center gap-1.5">
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        2 conversations
                       </button>
                     </div>
                   </div>
                 </div>
 
                 {conversations.map((conversation) => (
-                  <div key={conversation.id} className="rounded-2xl border border-[#e2e8fa] overflow-hidden bg-white">
+                  <div key={conversation.id} className="rounded-2xl overflow-hidden bg-white">
                     <div className="bg-[#f5f8ff] p-4 border-b border-[#e4ebfd]">
-                      <div className="flex items-center justify-between gap-3">
-                        <button className="inline-flex items-center gap-2 rounded-lg border border-[#d8e3fa] bg-white px-3 py-1.5 text-[13px] text-[#45629a] hover:bg-[#f7faff] transition-colors cursor-pointer">
-                          <CalendarDays className="w-3.5 h-3.5" />
-                          {conversation.date}
+                      <div className="flex items-center justify-between gap-3 px-3">
+                        <button className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-lg border border-blue-200">
+                          <CalendarDays className="w-3.5 h-3.5 text-blue-500" />
+                          <span className='text-xs font-medium text-slate-700'>
+                            {conversation.date}
+                          </span>
                         </button>
-                        <div className="flex items-center gap-3 text-[#8ba1ca]">
-                          <Share2 className="w-4 h-4 hover:text-[#4968a9] cursor-pointer transition-colors" />
-                          <Heart className="w-4 h-4 hover:text-[#4968a9] cursor-pointer transition-colors" />
-                          <Trash2 className="w-4 h-4 hover:text-[#4968a9] cursor-pointer transition-colors" />
+                        <div className="flex items-center gap-2">
+                          <div className="relative group">
+                            <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-white hover:scale-[1.1]">
+                              <Share2 className="size-3.5 text-[#6e7f9e] group-hover:text-[#2f6dff] transition-colors " />
+                            </button>
+                            <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                              <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                Share
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="relative group">
+                            <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-white hover:scale-[1.1]">
+                              <Heart className="size-4 text-[#6e7f9e] group-hover:text-[#ff3f95] transition-colors" />
+                            </button>
+                            <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                              <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                Like
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="relative group">
+                            <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-white hover:scale-[1.1]">
+                              <Trash2 className="size-4 text-[#6e7f9e] group-hover:text-[#ff3f3f] transition-colors" />
+                            </button>
+                            <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                              <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                Delete
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-4 sm:p-6 space-y-5">
-                      <div className="flex items-start justify-between">
-                        <div className="space-y-2 max-w-[440px]">
-                          <div className="flex items-center gap-2 text-[#263d69]">
-                            <span className="font-semibold text-[16px]">{conversation.asker}</span>
-                            <span className="text-[12px] text-[#8da1c5]">asked</span>
+                    <div className="p-4 sm:p-6">
+                      <div className="flex items-center gap-4 text-[#9baac7] mb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="relative group">
+                            <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-red-50 hover:scale-[1.1]">
+                              <Trash2 className="size-4 text-[#6e7f9e] group-hover:text-[#ff3f3f] transition-colors" />
+                            </button>
+                            <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                              <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                Delete
+                              </span>
+                            </div>
                           </div>
-                          <div className="inline-block rounded-2xl border border-[#e9edf8] bg-white px-4 py-2.5 text-[16px] text-[#2a3e67] shadow-sm">
-                            {conversation.question}
+
+                          <div className="relative group">
+                            <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-red-50 hover:scale-[1.1]">
+                              <Heart className="size-4 text-[#6e7f9e] group-hover:text-[#ff3f95] transition-colors" />
+                            </button>
+                            <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                              <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                Like
+                              </span>
+                            </div>
                           </div>
-                          <p className="text-[12px] text-[#9aadcd]">10:30 AM</p>
+
+                          <div className="relative group">
+                            <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-blue-50 hover:scale-[1.1]">
+                              <Share2 className="size-3.5 text-[#6e7f9e] group-hover:text-[#2f6dff] transition-colors " />
+                            </button>
+                            <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                              <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                Share
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="relative group">
+                            <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-blue-50 hover:scale-[1.1]">
+                              <Copy className="size-3.5 text-[#6e7f9e] group-hover:text-[#2f6dff] transition-colors " />
+                            </button>
+                            <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                              <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                Copy
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                        <img src={bheemIcon} alt="Asker" className="w-9 h-9 rounded-xl object-cover border border-[#e4eaf9]" />
                       </div>
 
-                      <div className="flex justify-end">
-                        <div className="max-w-[620px]">
-                          <div className="text-right text-[12px] text-[#9badcc] mb-1">
-                            replied <span className="text-[#3f5f9f] font-semibold">futurdoom</span>
+
+                      <div className="max-w-[560px]">
+                        <div className="flex items-center gap-3 text-[#263d69] ml-11">
+                          <span className="text-xs font-semibold text-slate-600">{conversation.asker}</span>
+                          <span className="text-[10px] text-slate-400">asked</span>
+                        </div>
+                        <div className="mt-1 ml-11 inline-block rounded-2xl rounded-bl-sm border border-[#d8e4fb] bg-white px-4 py-2.5 leading-none text-[#2a3e67] shadow-sm text-sm hover:scale-[1.01]">
+                          {conversation.question}
+                        </div>
+                        <div className="-mt-1.5 flex items-center gap-2 text-[#8da1c5]">
+                          <img src={conversation.questionAvatar} alt="Question user" className="size-9 rounded-xl object-cover border border-[#dce5f8] shadow-[0_3px_8px_rgba(0,0,0,0.15)]" />
+                          <span className="text-slate-400 text-xs">10:30 AM</span>
+                        </div>
+                      </div>
+
+
+                      <div className="flex justify-end mt-4">
+                        <div className="max-w-[670px] w-full">
+                          <div className="flex items-center justify-end gap-2">
+                            <div className="relative group">
+                              <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-red-50 hover:scale-[1.1]">
+                                <Trash2 className="size-4 text-[#6e7f9e] group-hover:text-[#ff3f3f] transition-colors" />
+                              </button>
+                              <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                                <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                  Delete
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="relative group">
+                              <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-red-50 hover:scale-[1.1]">
+                                <Heart className="size-4 text-[#6e7f9e] group-hover:text-[#ff3f95] transition-colors" />
+                              </button>
+                              <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                                <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                  Like
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="relative group">
+                              <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-blue-50 hover:scale-[1.1]">
+                                <Share2 className="size-3.5 text-[#6e7f9e] group-hover:text-[#2f6dff] transition-colors " />
+                              </button>
+                              <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                                <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                  Share
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="relative group">
+                              <button className="size-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:bg-blue-50 hover:scale-[1.1]">
+                                <Copy className="size-3.5 text-[#6e7f9e] group-hover:text-[#2f6dff] transition-colors " />
+                              </button>
+                              <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 z-20">
+                                <span className="block whitespace-nowrap rounded-md bg-[#54565a] px-2.5 py-1 text-[10px] font-semibold text-white shadow-[0_3px_8px_rgba(0,0,0,0.28)]">
+                                  Copy
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                          <div className="rounded-2xl rounded-br-md bg-linear-to-r from-[#1f5fff] to-[#1b44c6] text-white px-5 py-3 text-[17px] shadow-[0_8px_22px_rgba(32,89,255,0.3)]">
-                            {conversation.answer}
-                          </div>
-                          <div className="flex items-center justify-end gap-2 mt-2 text-[#9badcc] text-[12px]">
-                            <span>10:32 AM</span>
-                            <img src={qmeeImg} alt="AI" className="w-8 h-8 rounded-full border border-[#d4def8] bg-white p-1" />
+
+                          <div className='flex items-center justify-end gap-2 mb-6 mt-1'>
+                            <div>
+                              <div className="flex items-center justify-end text-[10px] text-slate-400 mb-1">
+                                replied <span className="text-xs font-semibold text-blue-600 mx-2">futurdoom</span>
+                                <Sparkles className="size-3 text-blue-400" />
+                              </div>
+                              <div className="flex justify-end hover:scale-[1.01]">
+                                <div className="rounded-2xl rounded-br-sm bg-linear-to-r to-[#1f5fff] from-[#1b44c6] text-white px-4 py-3 text-sm leading-none shadow-[0_10px_24px_rgba(32,89,255,0.28)]">
+                                  {conversation.answer}
+                                </div>
+                              </div>
+                              <div className="flex items-center justify-end gap-2 text-[#9badcc] text-[40px] leading-none mt-1">
+                                <span className='text-slate-400 text-xs'>10:32 AM</span>
+                                <CheckCheck className='text-blue-500 size-4' />
+                              </div>
+                            </div>
+                            <img src={conversation.answerAvatar} alt="Answer user" className=" size-9 rounded-xl object-cover border-2 border-[#9ad0ff] mt-12" />
                           </div>
                         </div>
                       </div>
 
-                      <div className="rounded-2xl border border-[#d6e2fb] bg-[#fbfdff] p-4 shadow-[inset_0_0_0_1px_rgba(222,233,255,0.6)]">
-                        <div className="flex items-center justify-between text-[#4f6ea8]">
-                          <div className="flex items-center gap-2">
-                            <MessageCircle className="w-4 h-4" />
-                            <span className="font-semibold text-[16px]">Continue reading...</span>
+                      <div className="rounded-2xl border border-[#b9d5ff] bg-[#f8fbff] px-7 py-5">
+                        <div className="flex items-center justify-between">
+                          <div className="inline-flex items-center gap-3">
+                            <span className="inline-flex items-center justify-center w-11 h-7 rounded-full bg-[#e9f1ff] text-[#2f6dff]">
+                              <MessageCircle className="w-4 h-4" />
+                            </span>
+                            <span className="text-[#2f58de] font-semibold text-[34px] leading-none">Continue reading...</span>
                           </div>
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowRight className="w-5 h-5 text-[#5b7dc2]" />
                         </div>
 
-                        <div className="mt-3 text-[14px] text-[#6b7faa]">Next question</div>
-                        <div className="mt-2 rounded-lg border border-[#edf2fd] bg-white px-3 py-2 text-[#3a4e7a]">
+                        <div className="mt-5 flex items-center gap-2 text-[#8ea1c3] text-[30px] leading-none">
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#ecf2fe] text-[18px]">u</span>
+                          <span>Next question</span>
+                        </div>
+                        <div className="mt-3 rounded-xl border border-[#e4ecfb] bg-white px-6 py-4 text-[#384f7c] text-[37px] leading-none">
                           Can you show me a complete example with CSS?
                         </div>
 
-                        <div className="mt-3 flex items-center justify-between text-[13px] text-[#7f92b7]">
+                        <div className="mt-4 flex items-center justify-end gap-2 text-[#7f92b7] text-[30px] leading-none">
                           <span>AI response</span>
-                          <Link2 className="w-3.5 h-3.5" />
+                          <Sparkles className="w-4 h-4 text-[#7ea0e2]" />
                         </div>
-                        <div className="mt-2 rounded-lg bg-[#eef3ff] px-3 py-2 text-[#365596] text-[14px]">
-                          Absolutely! Here&apos;s a complete example with responsive design.
+                        <div className="mt-2 rounded-xl border border-[#d9e4fb] bg-[#eef3ff] px-6 py-4 text-[#2e5be2] text-[35px] leading-none text-right">
+                          Absolutely! Here&apos;s a complete example with responsive design...
                         </div>
-                        <p className="text-center text-[11px] text-[#b1bfd9] mt-3">Click to view full conversation</p>
+
+                        <p className="text-center text-[23px] text-[#9fb0cf] mt-4 leading-none">Click to view full conversation</p>
                       </div>
 
                       <div className="pt-4 border-t border-[#e3e9f7] flex items-center justify-end gap-4">
