@@ -113,7 +113,7 @@ export default function ShareScreen({ onOpenChat, onOpenShare, onHome }: ShareSc
         <div className="space-y-5 bg-slate-100">
           <div className="px-4 lg:px-8 mx-auto w-[90%] grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4 items-start bg-gray-100 pt-6">
             <aside className="rounded-xl border border-[#e7ebf7] bg-white shadow-[0_12px_30px_rgba(30,58,138,0.07)] overflow-hidden lg:sticky lg:top-4">
-              <div className="h-[118px] bg-[radial-gradient(circle_at_22%_30%,rgba(255,255,255,0.22)_0_12%,transparent_38%),radial-gradient(circle_at_56%_58%,rgba(255,255,255,0.12)_0_16%,transparent_44%),radial-gradient(circle_at_88%_22%,rgba(255,255,255,0.16)_0_12%,transparent_36%),linear-gradient(135deg,#214ecf,#112e9d),repeating-linear-gradient(90deg,rgba(255,255,255,0.06)_0_1px,transparent_1px_34px),repeating-linear-gradient(0deg,rgba(255,255,255,0.05)_0_1px,transparent_1px_34px)] bg-blend-screen" />
+              <div className="h-[118px] bg-[linear-gradient(135deg,#214ecf,#112e9d),repeating-linear-gradient(90deg,rgba(255,255,255,0.06)_0_1px,transparent_1px_34px),repeating-linear-gradient(0deg,rgba(255,255,255,0.05)_0_1px,transparent_1px_34px)] bg-blend-screen  bg-gradient-to-r to-[#1a3aad] from-[#2563eb] " />
               <div className="px-6 pb-5">
                 <div className="relative -mt-12 w-20 h-20">
                   <div className="w-full h-full rounded-full shadow-[0_8px_20px_rgba(24,44,99,0.2)] overflow-hidden">
@@ -195,7 +195,7 @@ export default function ShareScreen({ onOpenChat, onOpenShare, onHome }: ShareSc
                   className={`mb-6 sticky top-0 z-20 rounded-tl-2xl rounded-tr-2xl border border-[#e2e8fa] overflow-hidden bg-white transition-transform duration-300 ease-out ${hideCommunityHeader ? '-translate-y-[110%]' : 'translate-y-0'
                     }`}
                 >
-                  <div className="px-6 py-5 bg-[linear-gradient(95deg,#1c45b8,#1034a6),radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.22),transparent_25%),radial-gradient(circle_at_70%_40%,rgba(255,255,255,0.12),transparent_22%),repeating-linear-gradient(90deg,rgba(255,255,255,0.06)_0_1px,transparent_1px_42px),repeating-linear-gradient(0deg,rgba(255,255,255,0.04)_0_1px,transparent_1px_42px)] bg-blend-overlay">
+                  <div className="px-6 py-5 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.06)_0_1px,transparent_1px_42px),repeating-linear-gradient(0deg,rgba(255,255,255,0.04)_0_1px,transparent_1px_42px),linear-gradient(95deg,#1c45b8,#1034a6)] bg-gradient-to-r to-[#1a3aad] from-[#2563eb] ">
                     <div className="flex items-start justify-between">
                       <div>
                         <p className="text-[12px] uppercase tracking-[0.25em] text-white/70 font-semibold inline-flex items-center gap-2">
@@ -430,7 +430,7 @@ export default function ShareScreen({ onOpenChat, onOpenShare, onHome }: ShareSc
                         <p className="text-[9px] text-slate-400 text-center mt-3">Click to view full conversation</p>
                       </div>
 
-                      <hr className='mt-6 text-blue-100'/>
+                      <hr className='mt-6 text-blue-100' />
 
                       <div className="pt-4.5 flex items-center justify-end gap-3">
                         <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200">
