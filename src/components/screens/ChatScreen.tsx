@@ -35,7 +35,7 @@ function TypewriterText({ text, onTyping }: { text: string; onTyping?: () => voi
       if (index >= text.length) {
         clearInterval(timer);
       }
-    }, 20); 
+    }, 20);
     return () => clearInterval(timer);
   }, [text]);
 
@@ -126,7 +126,7 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
   };
 
   return (
-    <div className="flex flex-col h-full w-full max-w-4xl mx-auto relative pb-2 overflow-hidden">
+    <div className="flex flex-col h-full w-full max-w-4xl mx-auto relative overflow-hidden">
       {/* Scrollable messages area */}
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-6 scroll-smooth scrollbar-hide">
         <AnimatePresence initial={false}>
@@ -142,21 +142,23 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
               {msg.sender === 'user' ? (
                 <div className="flex flex-col items-start ml-2 mb-2 relative z-10 mt-2">
                   {/* Top Row: Delete & Timestamp */}
-                  <div className="flex items-center space-x-2 mb-1.5 ml-[22px]">
+                  <div className="flex items-center space-x-2 mb-3.5 ml-[15px]">
                     <button
                       onClick={() => handleDeleteMessage(msg.id)}
-                      className="w-8 h-8 rounded-full border border-primary/20 bg-white text-primary flex items-center justify-center shadow-[0_0_8px_rgba(255,42,142,0.35)] cursor-pointer hover:scale-105 transition-transform shrink-0"
+                      className="size-7 rounded-full border border-primary/30 bg-white text-primary flex items-center justify-center cursor-pointer hover:scale-105 transition-transform shrink-0 border
+                        shadow-[0_0_6px_1px_rgba(255,42,142,0.25)]
+                      "
                     >
-                      <X size={16} strokeWidth={2.5} />
+                      <X size={18} strokeWidth={2} className=''/>
                     </button>
-                    <div className="bg-[#f05cb6] text-white px-3 py-1 rounded-[10px] text-xs font-semibold leading-none whitespace-nowrap tracking-wide">
+                    <div className="bg-[#f567b5] text-white px-2 py-1 rounded-md text-[11px] leading-none whitespace-nowrap tracking-wide">
                       {msg.timestamp}
                     </div>
                   </div>
 
                   {/* Message Bubble & Avatar Container */}
                   <div className="relative pl-5">
-                    <div className="bg-white border border-primary/30 text-primary shadow-[0_0_6px_1px_rgba(255,42,142,0.25)] rounded-xl rounded-bl-none px-6 py-4 min-w-[200px] text-[15.5px] sm:text-base font-medium">
+                    <div className="bg-white border border-primary/30 text-[#f7105d] shadow-[0_0_6px_1px_rgba(255,42,142,0.25)] rounded-xl rounded-bl-none px-8 py-6 min-w-[200px] text-[15.5px] font-light">
                       {msg.text}
                     </div>
 
@@ -170,10 +172,10 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col items-end mb-2 relative z-10 w-full">
+                <div className="flex flex-col items-end mb-3 -mt-1 relative z-10 w-full">
                   {/* Message Bubble & Avatar Container */}
                   <div className="relative pr-5 max-w-[85%] ml-auto">
-                    <div className="bg-[#f5439a] text-white shadow-[0_0_8px_rgba(255,42,142,0.15)] rounded-xl rounded-br-none px-6 py-4 text-[15px] sm:text-base font-medium leading-relaxed whitespace-pre-wrap">
+                    <div className="bg-[#f84489] text-white shadow-[0_0_8px_rgba(255,42,142,0.15)] rounded-xl rounded-br-none py-8 px-10 text-[15px] leading-relaxed whitespace-pre-wrap">
                       {/* Optional hover delete */}
                       <button
                         onClick={() => handleDeleteMessage(msg.id)}
@@ -189,7 +191,7 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
                       src={qmeeImg}
                       alt="AI Avatar"
                       loading="lazy"
-                      className="absolute -right-[9px] -bottom-4 w-7 h-7 rounded-full border-2 border-[#f5439a] object-contain bg-white z-20 pointer-events-none"
+                      className="absolute -right-[5px] -bottom-4 size-6 rounded-full border-2 border-[#f5439a] object-contain bg-white z-20 pointer-events-none"
                     />
                   </div>
                 </div>
@@ -199,20 +201,22 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
         </AnimatePresence>
 
         {/* Padding element for smooth auto scroll effect */}
-        {isGenerating && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="flex w-full justify-end pr-10 py-2">
-            <div className="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center border border-primary border-t-transparent animate-spin shadow-sm">
-              <MoreHorizontal size={20} className="animate-pulse" />
-            </div>
-          </motion.div>
-        )}
+        {isGenerating && <div className='flex items-center justify-end gap-2 -mr-1'>
+          <MoreHorizontal strokeWidth={3.2} className='!text-[#fa0276] animate-heartbeat-without-bg !bg-none'/>
+          <img
+            src={qmeeImg}
+            alt="AI Avatar"
+            loading="lazy"
+            className="size-6 rounded-full border-2 border-[#f5439a] object-contain bg-white z-20 pointer-events-none"
+          />
+        </div>}
 
         {/* Invisible target for auto-scrolling */}
         <div ref={messagesEndRef} />
       </div>
 
       {/* Pinned bottom input bar */}
-      <div className="mt-auto px-4 lg:px-0 w-full bg-background pt-2 pb-2 shrink-0 z-10 border-t border-transparent">
+      <div className="mt-auto px-4 lg:px-0 w-full bg-background shrink-0 z-10 border-t border-transparent">
         <InputBar onSend={handleSend} isGenerating={isGenerating} />
       </div>
     </div>

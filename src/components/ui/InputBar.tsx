@@ -1,4 +1,4 @@
-import { Send, X, MoreHorizontal } from 'lucide-react';
+import { X, MoreHorizontal, SendHorizonal } from 'lucide-react';
 import { useState } from 'react';
 
 interface InputBarProps {
@@ -18,12 +18,12 @@ export default function InputBar({ onSend, autoFocus, isGenerating }: InputBarPr
   };
 
   return (
-    <div className="w-full relative flex items-center bg-[#ffaecb] rounded-[20px] py-1.5 px-0.5 shadow-sm transition-colors">
+    <div className="w-full relative flex items-center bg-[#fa9dad] rounded-[20px] py-1.5 px-0.5 shadow-sm transition-colors">
       {/* Text Input */}
       <input
         type="text"
-        placeholder="What's on your mind ?"
-        className="flex-1 bg-[#f4f7f9] h-10 rounded-2xl px-6 text-[15px] sm:text-base text-primary placeholder-primary/60 outline-none border-none font-medium"
+        placeholder={isGenerating?"Just wait & watch !":"What's on your mind ?"}
+        className="flex-1 bg-[#f4f7f9] h-10 rounded-2xl px-6 text-[13.5px] sm:text-base text-[#fc0d71] placeholder:text-[#fc0d71] placeholder:opacity-100 outline-none border-none"
         autoFocus={autoFocus}
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -32,28 +32,28 @@ export default function InputBar({ onSend, autoFocus, isGenerating }: InputBarPr
           if (e.key === 'Enter') handleSend();
         }}
       />
-      
+
       {/* Action Buttons */}
       <div className="flex items-center space-x-2 ml-2">
         {value.length > 0 && !isGenerating && (
-          <button 
+          <button
             onClick={() => setValue('')}
-            className="w-10 h-10 rounded-full bg-primary text-white hover:bg-primary-light flex items-center justify-center transition-colors cursor-pointer shrink-0"
+            className="hover:text-[#ed4895f2] size-9 rounded-full bg-primary text-white hover:bg-primary-light flex items-center justify-center transition-colors cursor-pointer shrink-0 hover:bg-white"
           >
-            <X size={20} strokeWidth={2.5} />
+            <X size={20} />
           </button>
         )}
 
         {isGenerating ? (
-          <div className="w-10 h-10 rounded-full bg-white/80 text-primary flex items-center justify-center border-2 border-primary border-t-transparent animate-spin shrink-0">
-            <MoreHorizontal size={20} className="animate-pulse" />
+          <div className="size-9 rounded-full bg-white/80 text-primary flex items-center justify-center shrink-0 animate-heartbeat mr-[2px]">
+            <MoreHorizontal className='size-5.6 !text-[#fa0276]' />
           </div>
         ) : (
-          <button 
+          <button
             onClick={handleSend}
-            className="w-10 h-10 rounded-full bg-white text-primary flex items-center justify-center hover:bg-white/90 transition-colors shadow-sm cursor-pointer shrink-0"
+            className={`size-9 rounded-full ${value.trim() ? 'bg-white cursor-pointer hover:bg-[#de1b89]' : 'bg-[#f6cdd4]'} text-primary flex items-center justify-center  `}
           >
-            <Send size={18} strokeWidth={2.5} className="mr-0.5 mt-0.5" />
+            <SendHorizonal className="size-5.6 text-[#ed4895f2]" strokeWidth={1.6} />
           </button>
         )}
       </div>

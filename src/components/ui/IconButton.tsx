@@ -11,7 +11,12 @@ export function IconButton({ icon, tooltip, onClick }: IconButtonProps) {
     <div className="relative group flex flex-col items-center">
       <button
         onClick={onClick}
-        className="size-8 rounded-xl flex items-center justify-center border-1 border-primary/50 text-primary bg-white shadow-[0_0_5px_rgba(255,42,142,0.35)] transition-all duration-300 group-hover:bg-primary group-hover:text-white group-hover:shadow-[0_0_5px_rgba(255,42,142,0.6)] cursor-pointer"
+        className="size-7.5 rounded-xl flex items-center justify-center  text-primary bg-white 
+  shadow-[-0.01px_-0.01px_3px_0.1px_#fc19b0] 
+  transition-all duration-300 
+  group-hover:bg-primary group-hover:text-white 
+  group-hover:shadow-[-0.01px_-0.01px_3px_0.2px_#fc19b0] 
+  cursor-pointer"
       >
         {icon}
       </button>

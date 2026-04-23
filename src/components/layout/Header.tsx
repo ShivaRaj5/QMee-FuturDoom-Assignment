@@ -4,25 +4,25 @@ import qmeeImg from '../../assets/qmee.png';
 
 export default function Header() {
   return (
-    <header className="w-full max-w-4xl mx-auto px-4 py-6 flex items-center justify-between z-20 relative">
+    <header className="w-full max-w-4xl mx-auto px-10 pt-1.5 flex items-center justify-between z-20 relative pb-2">
       {/* Left Logo / Profile (Approximation of the red logo sphere) */}
-      <img src={qmeeImg} alt="Logo" loading="lazy" className="size-6 object-contain" />
+      <img src={qmeeImg} alt="Logo" loading="lazy" className="size-5 object-contain mt-2" />
 
       {/* Center Navigation Icons */}
-      <div className="flex space-x-3 mt-1">
+      <div className="flex space-x-2 mt-1">
         <IconButton
           onClick={() => document.dispatchEvent(new CustomEvent('navigate-home'))}
-          icon={<Home size={20} strokeWidth={2.5} />}
+          icon={<Home size={22} />}
           tooltip="Home"
         />
         <IconButton
           onClick={() => document.dispatchEvent(new CustomEvent('clear-chat'))}
-          icon={<Eraser size={20} strokeWidth={2.5} />}
+          icon={<Eraser size={22} />}
           tooltip="Clear chat"
         />
         <IconButton
           onClick={() => window.open('https://www.linkedin.com/in/shiva-raj-6033b71a3/', '_blank')}
-          icon={<LinkedinIcon size={20} strokeWidth={2.5} />}
+          icon={<LinkedinIcon size={22} />}
           tooltip="Know about developer"
         />
       </div>

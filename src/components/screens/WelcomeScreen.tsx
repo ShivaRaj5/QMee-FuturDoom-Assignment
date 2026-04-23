@@ -12,22 +12,22 @@ export default function WelcomeScreen({ onStartChat, onGoLanding }: WelcomeScree
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="flex-1 flex flex-col items-center justify-center pb-8 pt-6 w-full"
+      className="flex-1 flex flex-col items-center justify-center pt-6 w-full"
     >
-      <button onClick={onGoLanding} className="absolute top-6 left-1/2 -translate-x-1/2 cursor-pointer">
+      <button onClick={onGoLanding} className="absolute top-12 left-1/2 -translate-x-1/2 cursor-pointer">
         <QMeeTextLogo />
       </button>
 
-      <div className="flex flex-col items-center w-full max-w-2xl mt-12 mb-auto shrink-0">
+      <div className="flex flex-col items-center w-full max-w-2xl mt-20 mb-auto shrink-0">
         <div className='mt-16'>
           <CentralGraphic />
         </div>
 
         <div className="text-center mt-8 space-y-4">
-          <h1 className="text-primary text-2xl tracking-wide">
-            Welcome to Q<span className='font-bold'>Mee</span>
+          <h1 className="text-[26px] tracking-wide text-[#ff034f]! font-light">
+            Welcome to Q<span className='font-bold text-[#de1b89]'>Mee</span>
           </h1>
-          <p className="text-primary text-sm font-medium">
+          <p className="text-primary text-[14px] font-medium text-[#f82286]">
             Ask me anything, and I'm here to help you.
           </p>
         </div>

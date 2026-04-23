@@ -51,7 +51,7 @@ function App() {
       {currentScreen === 'chat' && <Header />}
       <main
         className={`flex-1 w-full mx-auto flex flex-col relative overflow-hidden ${
-          currentScreen === 'landing' || currentScreen === 'share' ? 'max-w-none px-0' : 'max-w-5xl px-4'
+          currentScreen === 'landing' || currentScreen === 'share' ? 'max-w-none px-0' : 'max-w-4xl px-4'
         }`}
       >
         {currentScreen === 'landing' && (
