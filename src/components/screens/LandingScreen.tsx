@@ -1,4 +1,4 @@
-import { CentralGraphic } from '../ui/CentralGraphics';
+import { CentralGraphic, QMeeTextLogo } from '../ui/CentralGraphics';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import LandingHeader from '../layout/LandingHeader';
@@ -17,6 +17,9 @@ export default function LandingScreen({ onNext, onShare, onHome }: LandingScreen
       className="flex-1 flex flex-col items-center justify-between pb-8"
     >
       <LandingHeader onOpenChat={onNext} onOpenShare={onShare} onGoHome={onHome} />
+      <div className='mt-4'>
+        <QMeeTextLogo />
+      </div>
 
       <div className="flex flex-col items-center w-full">
         <div className="mt-12 mb-20">
@@ -25,16 +28,25 @@ export default function LandingScreen({ onNext, onShare, onHome }: LandingScreen
 
         <button
           onClick={onNext}
-          className="flex items-center space-x-3 px-5 py-1 rounded-xl border-2 border-primary/20 text-primary font-medium hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer"
+          className="
+    flex items-center space-x-3 px-5 py-1 
+    rounded-xl 
+    border border-[#f8bee4] 
+    text-primary font-medium 
+    mt-10 cursor-pointer
+    bg-white
+    shadow-[0_0_5px_rgba(255,107,181,0.3),0_2px_5px_rgba(255,107,181,0.18)]
+    transition-all duration-300
+  "
         >
-          <ArrowRight className="w-8 h-8 animate-arrow-fade stroke-[2]" />
-          <span>Let's go</span>
+          <ArrowRight className="w-8 h-8 animate-arrow-fade stroke-[2] text-[#fa1593]" />
+          <span className='font-light text-[#fa1c79]'>Let's go</span>
         </button>
       </div>
 
-      <div className="text-primary mt-auto text-center px-4">
+      <span className="mt-auto text-center px-4 text-[#eb1d84] !font-light">
         Q<span className='text-[#f508c1]'>Mee</span> can generate inaccurate responses.Verify responses through independent sources.
-      </div>
+      </span>
     </motion.div>
   );
 }
