@@ -1,52 +1,26 @@
-import { useState, useEffect, useRef } from 'react';
-import InputBar from '../ui/InputBar';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, MoreHorizontal } from 'lucide-react';
-import bheemIcon from '../../assets/bheem-icon.jpg';
-import qmeeImg from '../../assets/qmee.png';
-import { useCallback } from 'react';
+import { useState, useEffect, useRef } from "react";
+import InputBar from "../ui/InputBar";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, MoreHorizontal } from "lucide-react";
+import bheemIcon from "../../assets/bheem-icon.jpg";
+import qmeeImg from "../../assets/qmee.png";
+import { useCallback } from "react";
+import { dummyResponse } from "../utils/data";
+import { TypewriterText } from "./TypewriterText";
 
 interface Message {
   id: string;
-  sender: 'user' | 'ai';
+  sender: "user" | "ai";
   text: string;
   timestamp: string;
   isTyping?: boolean;
-}
-
-function TypewriterText({ text, onTyping }: { text: string; onTyping?: () => void }) {
-  const [displayedText, setDisplayedText] = useState('');
-
-  // Keep a stable ref to avoid restarting the animation
-  const onTypingRef = useRef(onTyping);
-  useEffect(() => {
-    onTypingRef.current = onTyping;
-  }, [onTyping]);
-
-  useEffect(() => {
-    let index = 0;
-    setDisplayedText('');
-    const timer = setInterval(() => {
-      index += 3; // Chunk characters to optimize render frequency
-      setDisplayedText(text.slice(0, index));
-      if (onTypingRef.current) {
-        onTypingRef.current();
-      }
-      if (index >= text.length) {
-        clearInterval(timer);
-      }
-    }, 20);
-    return () => clearInterval(timer);
-  }, [text]);
-
-  return <>{displayedText}</>;
 }
 
 interface ChatScreenProps {
   initialPrompt?: string;
 }
 
-export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
+export default function ChatScreen({ initialPrompt }: ChatScreenProps){
   const [messages, setMessages] = useState<Message[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -61,11 +35,11 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
   }, [initialPrompt]);
 
   const scrollToBottomSmooth = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollToBottomInstant = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
   }, []);
 
   useEffect(() => {
@@ -74,8 +48,8 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
 
   useEffect(() => {
     const handleClearChat = () => setMessages([]);
-    document.addEventListener('clear-chat', handleClearChat);
-    return () => document.removeEventListener('clear-chat', handleClearChat);
+    document.addEventListener("clear-chat", handleClearChat);
+    return () => document.removeEventListener("clear-chat", handleClearChat);
   }, []);
 
   const handleSend = (text: string) => {
@@ -83,45 +57,48 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
 
     const newMsg: Message = {
       id: Date.now().toString(),
-      sender: 'user',
+      sender: "user",
       text,
-      timestamp: 'a few seconds ago'
+      timestamp: "a few seconds ago",
     };
-    setMessages(prev => [...prev, newMsg]);
+    setMessages((prev) => [...prev, newMsg]);
     setIsGenerating(true);
 
     // Mock AI reply simulating 1 second loading
     setTimeout(() => {
-      setMessages(prev => [...prev, {
-        id: (Date.now() + 1).toString(),
-        sender: 'ai',
-        text: "QMee is a modern, highly interactive AI agent interface designed to provide seamless conversational experiences. Engineered with pixel-perfect precision, this application features a sleek, high-end responsive layout marked by dynamic typography and bold, glowing pink aesthetics. Behind the scenes, the QMee frontend leverages React and Tailwind CSS v4 to orchestrate fluid typewriter animations, paired with a custom component architecture that ensures buttery-smooth screen transitions. It delivers an exceptionally fluid user experience where sophisticated navigational layouts and intelligently managed scrolling boundaries effortlessly bridge the gap between elegant UI design paradigms and deeply personalized, real-time artificial intelligence exchanges.",
-        timestamp: 'a few seconds ago',
-        isTyping: true
-      }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          sender: "ai",
+          text: dummyResponse,
+          isTyping: true,
+          timestamp: "few seconds ago",
+        },
+      ]);
       setIsGenerating(false);
     }, 1000);
   };
 
   const handleDeleteMessage = (id: string) => {
-    setMessages(prev => {
-      const index = prev.findIndex(msg => msg.id === id);
+    setMessages((prev) => {
+      const index = prev.findIndex((msg) => msg.id === id);
       if (index === -1) return prev;
       const targetMsg = prev[index];
 
-      if (targetMsg.sender === 'user') {
+      if (targetMsg.sender === "user") {
         // Find if next message is AI response, delete it too
-        if (index + 1 < prev.length && prev[index + 1].sender === 'ai') {
+        if (index + 1 < prev.length && prev[index + 1].sender === "ai") {
           return prev.filter((_, i) => i !== index && i !== index + 1);
         }
-      } else if (targetMsg.sender === 'ai') {
+      } else if (targetMsg.sender === "ai") {
         // Find if previous message is User prompt, delete it too
-        if (index - 1 >= 0 && prev[index - 1].sender === 'user') {
+        if (index - 1 >= 0 && prev[index - 1].sender === "user") {
           return prev.filter((_, i) => i !== index && i !== index - 1);
         }
       }
 
-      return prev.filter(msg => msg.id !== id);
+      return prev.filter((msg) => msg.id !== id);
     });
   };
 
@@ -137,9 +114,9 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
               key={msg.id}
-              className={`flex w-full ${msg.sender === 'user' ? 'justify-start' : 'justify-end'}`}
+              className={`flex w-full ${msg.sender === "user" ? "justify-start" : "justify-end"}`}
             >
-              {msg.sender === 'user' ? (
+              {msg.sender === "user" ? (
                 <div className="flex flex-col items-start ml-2 mb-2 relative z-10 mt-2">
                   {/* Top Row: Delete & Timestamp */}
                   <div className="flex items-center space-x-2 mb-3.5 ml-[15px]">
@@ -149,7 +126,7 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
                         shadow-[0_0_6px_1px_rgba(255,42,142,0.25)]
                       "
                     >
-                      <X size={18} strokeWidth={2} className=''/>
+                      <X size={18} strokeWidth={2} className="" />
                     </button>
                     <div className="bg-[#f567b5] text-white px-2 py-1 rounded-md text-[11px] leading-none whitespace-nowrap tracking-wide">
                       {msg.timestamp}
@@ -183,7 +160,14 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
                       >
                         <X size={12} />
                       </button>
-                      {msg.isTyping ? <TypewriterText text={msg.text} onTyping={scrollToBottomInstant} /> : msg.text}
+                      {msg.isTyping ? (
+                        <TypewriterText
+                          text={dummyResponse}
+                          onTyping={scrollToBottomInstant}
+                        />
+                      ) : (
+                        msg.text
+                      )}
                     </div>
 
                     {/* Absolute Avatar */}
@@ -201,15 +185,20 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps) {
         </AnimatePresence>
 
         {/* Padding element for smooth auto scroll effect */}
-        {isGenerating && <div className='flex items-center justify-end gap-2 -mr-1'>
-          <MoreHorizontal strokeWidth={3.2} className='!text-[#fa0276] animate-heartbeat-without-bg !bg-none'/>
-          <img
-            src={qmeeImg}
-            alt="AI Avatar"
-            loading="lazy"
-            className="size-6 rounded-full border-2 border-[#f5439a] object-contain bg-white z-20 pointer-events-none"
-          />
-        </div>}
+        {isGenerating && (
+          <div className="flex items-center justify-end gap-2 -mr-1">
+            <MoreHorizontal
+              strokeWidth={3.2}
+              className="!text-[#fa0276] animate-heartbeat-without-bg !bg-none"
+            />
+            <img
+              src={qmeeImg}
+              alt="AI Avatar"
+              loading="lazy"
+              className="size-6 rounded-full border-2 border-[#f5439a] object-contain bg-white z-20 pointer-events-none"
+            />
+          </div>
+        )}
 
         {/* Invisible target for auto-scrolling */}
         <div ref={messagesEndRef} />
