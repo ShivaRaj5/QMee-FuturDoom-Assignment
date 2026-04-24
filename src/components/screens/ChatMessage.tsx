@@ -5,16 +5,21 @@ export function ChatMessage({ message }: { message: string }) {
   return (
     <ReactMarkdown
       components={{
-        code({ inline, className, children }) {
+        code({
+          inline,
+          className,
+          children,
+        }: {
+          inline?: boolean;
+          className?: string;
+          children?: React.ReactNode;
+        }) {
           const match = /language-(\w+)/.exec(className || "");
           const language = match ? match[1] : "plaintext";
 
           if (!inline) {
             return (
-              <CodeBlock
-                language={language}
-                code={String(children).trim()}
-              />
+              <CodeBlock language={language} code={String(children).trim()} />
             );
           }
 

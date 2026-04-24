@@ -32,5 +32,5 @@ export function TypewriterText({
     return () => clearInterval(timer);
   }, [text]);
 
-  return <>{<ChatMessage message={displayedText} />}</>;
+  return <ChatMessage message={displayedText} />;
 }
