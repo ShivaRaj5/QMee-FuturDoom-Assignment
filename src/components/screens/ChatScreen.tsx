@@ -5,7 +5,7 @@ import { X, MoreHorizontal } from "lucide-react";
 import bheemIcon from "../../assets/bheem-icon.jpg";
 import qmeeImg from "../../assets/qmee.png";
 import { useCallback } from "react";
-import { dummyResponse } from "../utils/data";
+import { getDummyResponse } from "../utils/data";
 import { TypewriterText } from "./TypewriterText";
 
 interface Message {
@@ -23,6 +23,7 @@ interface ChatScreenProps {
 export default function ChatScreen({ initialPrompt }: ChatScreenProps){
   const [messages, setMessages] = useState<Message[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const initialSent = useRef(false);
@@ -63,21 +64,28 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps){
     };
     setMessages((prev) => [...prev, newMsg]);
     setIsGenerating(true);
+    setIsWaitingForResponse(true);
 
     // Mock AI reply simulating 1 second loading
     setTimeout(() => {
+      const aiResponse = getDummyResponse(text);
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           sender: "ai",
-          text: dummyResponse,
+          text: aiResponse,
           isTyping: true,
           timestamp: "few seconds ago",
         },
       ]);
-      setIsGenerating(false);
+      setIsWaitingForResponse(false); // Response starts typing, hide loading indicator
+      // setIsGenerating(false) will be called when typing completes
     }, 1000);
+  };
+
+  const handleTypingComplete = () => {
+    setIsGenerating(false);
   };
 
   const handleDeleteMessage = (id: string) => {
@@ -162,8 +170,9 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps){
                       </button>
                       {msg.isTyping ? (
                         <TypewriterText
-                          text={dummyResponse}
+                          text={msg.text}
                           onTyping={scrollToBottomInstant}
+                          onTypingComplete={handleTypingComplete}
                         />
                       ) : (
                         msg.text
@@ -185,7 +194,7 @@ export default function ChatScreen({ initialPrompt }: ChatScreenProps){
         </AnimatePresence>
 
         {/* Padding element for smooth auto scroll effect */}
-        {isGenerating && (
+        {isWaitingForResponse && (
           <div className="flex items-center justify-end gap-2 -mr-1">
             <MoreHorizontal
               strokeWidth={3.2}
